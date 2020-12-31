@@ -37,7 +37,9 @@ namespace ControllerSales
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<ControllerSalesContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("ControllerSalesContext")));
+                    options.UseMySql(Configuration.GetConnectionString("ControllerSalesContext"), builder =>
+        builder.MigrationsAssembly("ControllerSales")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
