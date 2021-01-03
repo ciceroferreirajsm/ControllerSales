@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ControllerSales.Data;
+using ControllerSales.Models;
 
 namespace ControllerSales
 {
@@ -40,14 +41,16 @@ namespace ControllerSales
                     options.UseMySql(Configuration.GetConnectionString("ControllerSalesContext"), builder =>
         builder.MigrationsAssembly("ControllerSales")));
 
+            services.AddScoped<SeedingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedingService seedingService)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                seedingService.Seed();
             }
             else
             {
