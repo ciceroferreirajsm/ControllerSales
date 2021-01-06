@@ -7,23 +7,17 @@ using ControllerSales.Models;
 
 namespace ControllerSales.Services
 {
-    public class SellerService
+    public class DepartmentService
     {
         private readonly ControllerSalesContext _context;
 
-        public SellerService(ControllerSalesContext context)
+        public DepartmentService(ControllerSalesContext context)
         {
             _context = context;
         }
-
-        public List<Seller> FindAll()
+        public List<Department> FindAll()
         {
-            return _context.Seller.ToList();
-        }
-        public void Insert(Seller obj)
-        {
-            _context.Add(obj);
-            _context.SaveChanges();
+            return _context.Department.OrderBy(x => x.Name).ToList();
         }
     }
 }
